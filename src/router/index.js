@@ -9,6 +9,7 @@ const routes = [
 
 export default createRouter({
   // Use hash history to avoid 404s on static hosts like GitHub Pages
-  history: createWebHashHistory('/Projeto-final-4/'),
+  // No base here — build uses Vite `base` and GitHub Pages serves from repo path
+  history: createWebHashHistory(),
   routes,
 })
