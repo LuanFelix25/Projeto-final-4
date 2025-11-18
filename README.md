@@ -5,7 +5,7 @@ Este projeto é uma entrega do Módulo 4 — refatoração para uso do Vue.js co
 Principais pontos implementados nesta entrega:
 - Uso de Vite para dev server e HMR
 - Vue Router para navegação
-- Vuex para estado (usuario/tarefas)
+- Vuex para estado (usuario)
 - Validações de formulário migradas para o bloco <script> de cada view (Home)
 
 ## Rodar localmente (dev)

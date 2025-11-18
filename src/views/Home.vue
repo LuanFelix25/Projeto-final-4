@@ -1,97 +1,30 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue'
-import { useStore } from 'vuex'
-
-const store = useStore()
-const loading = ref(false)
-const error = ref(null)
-
-const sampleTodos = [
-  { id: 1, title: 'Aprender Vue 3' },
-  { id: 2, title: 'Praticar Router e Vuex' },
-  { id: 3, title: 'Refatorar para Vite' },
-]
-
-onMounted(() => {
-  if (!store.state.todos || store.state.todos.length === 0) {
-    store.commit('setTodos', sampleTodos)
-  }
-})
-
-const form = ref({ title: '' })
-const formErrors = ref({ title: null })
-
-function validate() {
-  formErrors.value.title = null
-  if (!form.value.title || !form.value.title.trim()) {
-    formErrors.value.title = 'O título é obrigatório.'
-  } else if (form.value.title.trim().length < 3) {
-    formErrors.value.title = 'O título deve ter ao menos 3 caracteres.'
-  }
-  return !formErrors.value.title
-}
-
-function submit() {
-  if (!validate()) return
-  const title = form.value.title.trim()
-  store.commit('addTodo', { title })
-  form.value.title = ''
-}
-
-const todos = computed(() => store.state.todos || [])
+// Página inicial limpa — removidas referências ao sistema de gerenciamento de tarefas
 </script>
 
 <template>
   <section class="home-section">
     <div class="card">
       <div class="card-header">
-        <h2>🏠 Home (Router)</h2>
-        <p class="subtitle">Lista de tarefas armazenadas no <span class="highlight">Vuex</span></p>
+        <h2>Bem-vindo</h2>
+        <p class="subtitle">Esta é a página inicial. Conteúdo relacionado ao sistema de gerenciamento de tarefas foi removido.</p>
       </div>
 
-      <form @submit.prevent="submit" class="todo-form">
-        <div class="form-group">
-          <input 
-            v-model="form.title" 
-            placeholder="Digite uma nova tarefa..." 
-            class="input"
-            :class="{ 'input-error': formErrors.title }"
-          />
-          <button type="submit" class="btn btn-primary">
-            <span>➕</span> Adicionar
-          </button>
-        </div>
-        <transition name="error-fade">
-          <div v-if="formErrors.title" class="error-message">
-            ⚠️ {{ formErrors.title }}
-          </div>
-        </transition>
-      </form>
-
-      <div class="todos-container">
-        <transition-group name="list" tag="ul" class="todo-list">
-          <li v-for="t in todos" :key="t.id" class="todo-item">
-            <span class="todo-id">#{{ t.id }}</span>
-            <span class="todo-title">{{ t.title }}</span>
-            <span class="todo-check">✓</span>
-          </li>
-        </transition-group>
-        
-        <div v-if="todos.length === 0" class="empty-state">
-          <p>📋 Nenhuma tarefa ainda. Adicione uma acima!</p>
-        </div>
-      </div>
-
-      <div v-if="$store.state.lastFetch" class="last-update">
-        🕐 Última atualização: {{ new Date($store.state.lastFetch).toLocaleString() }}
+      <div class="content">
+        <p>Use a navegação para explorar o site.</p>
       </div>
     </div>
   </section>
 </template>
 
 <style scoped>
-.home-section {
-  display: flex;
+.home-section { display:flex; justify-content:center; padding:2rem 1rem; }
+.card { background: white; border-radius: 12px; padding: 1.8rem; max-width:800px; width:100%; box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+.card-header h2 { font-size:1.6rem; margin-bottom:0.5rem; }
+.subtitle { color: #666; margin-bottom:1rem }
+.content { color: #333 }
+@media (max-width:768px){ .card { padding:1rem } }
+</style>
   justify-content: center;
 }
 
