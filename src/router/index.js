@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import About from '../views/About.vue'
 
@@ -8,6 +8,7 @@ const routes = [
 ]
 
 export default createRouter({
-  history: createWebHistory('/Projeto-final-4/'),
+  // Use hash history to avoid 404s on static hosts like GitHub Pages
+  history: createWebHashHistory('/Projeto-final-4/'),
   routes,
 })
