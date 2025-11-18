@@ -42,67 +42,48 @@ const todos = computed(() => store.state.todos || [])
 </script>
 
 <template>
-  <section class="home-wrapper">
-    <!-- Hero card (estilo do print) -->
-    <div class="hero-center">
-      <div class="hero-card">
-        <div class="hero-logo">SGT</div>
-        <h1>Sistema de Gerenciamento de Tarefas</h1>
-        <p class="hero-desc">Bem-vindo ao seu gerenciador de tarefas pessoal. Organize seu dia e aumente sua produtividade.</p>
-
-        <div class="hero-actions">
-          <button class="btn-hero btn-hero-primary">Acessar Minha Conta</button>
-          <button class="btn-hero btn-hero-secondary">Criar Nova Conta</button>
-        </div>
-
-        <div class="hero-footer">© 2025 Projeto Acadêmico</div>
+  <section class="home-section">
+    <div class="card">
+      <div class="card-header">
+        <h2>🏠 Home (Router)</h2>
+        <p class="subtitle">Lista de tarefas armazenadas no <span class="highlight">Vuex</span></p>
       </div>
-    </div>
 
-    <!-- Conteúdo principal: todo card abaixo do hero -->
-    <div class="home-section">
-      <div class="card">
-        <div class="card-header">
-          <h2>🏠 Home (Router)</h2>
-          <p class="subtitle">Lista de tarefas armazenadas no <span class="highlight">Vuex</span></p>
+      <form @submit.prevent="submit" class="todo-form">
+        <div class="form-group">
+          <input 
+            v-model="form.title" 
+            placeholder="Digite uma nova tarefa..." 
+            class="input"
+            :class="{ 'input-error': formErrors.title }"
+          />
+          <button type="submit" class="btn btn-primary">
+            <span>➕</span> Adicionar
+          </button>
         </div>
-
-        <form @submit.prevent="submit" class="todo-form">
-          <div class="form-group">
-            <input 
-              v-model="form.title" 
-              placeholder="Digite uma nova tarefa..." 
-              class="input"
-              :class="{ 'input-error': formErrors.title }"
-            />
-            <button type="submit" class="btn btn-primary">
-              <span>➕</span> Adicionar
-            </button>
+        <transition name="error-fade">
+          <div v-if="formErrors.title" class="error-message">
+            ⚠️ {{ formErrors.title }}
           </div>
-          <transition name="error-fade">
-            <div v-if="formErrors.title" class="error-message">
-              ⚠️ {{ formErrors.title }}
-            </div>
-          </transition>
-        </form>
+        </transition>
+      </form>
 
-        <div class="todos-container">
-          <transition-group name="list" tag="ul" class="todo-list">
-            <li v-for="t in todos" :key="t.id" class="todo-item">
-              <span class="todo-id">#{{ t.id }}</span>
-              <span class="todo-title">{{ t.title }}</span>
-              <span class="todo-check">✓</span>
-            </li>
-          </transition-group>
-          
-          <div v-if="todos.length === 0" class="empty-state">
-            <p>📋 Nenhuma tarefa ainda. Adicione uma acima!</p>
-          </div>
+      <div class="todos-container">
+        <transition-group name="list" tag="ul" class="todo-list">
+          <li v-for="t in todos" :key="t.id" class="todo-item">
+            <span class="todo-id">#{{ t.id }}</span>
+            <span class="todo-title">{{ t.title }}</span>
+            <span class="todo-check">✓</span>
+          </li>
+        </transition-group>
+        
+        <div v-if="todos.length === 0" class="empty-state">
+          <p>📋 Nenhuma tarefa ainda. Adicione uma acima!</p>
         </div>
+      </div>
 
-        <div v-if="$store.state.lastFetch" class="last-update">
-          🕐 Última atualização: {{ new Date($store.state.lastFetch).toLocaleString() }}
-        </div>
+      <div v-if="$store.state.lastFetch" class="last-update">
+        🕐 Última atualização: {{ new Date($store.state.lastFetch).toLocaleString() }}
       </div>
     </div>
   </section>
@@ -344,100 +325,6 @@ const todos = computed(() => store.state.todos || [])
   }
 }
 
-/* Hero card estilo 'login' escuro (centrado) */
-.home-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.hero-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 3rem 1rem;
-}
-
-.hero-card {
-  background: #27303a; /* card base */
-  color: #ffffff;
-  width: 100%;
-  max-width: 720px;
-  border-radius: 18px;
-  padding: 3rem 2.25rem;
-  text-align: center;
-  box-shadow: 0 18px 50px rgba(2,6,23,0.6);
-  border: 1px solid rgba(255,255,255,0.04);
-}
-
-.hero-logo {
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
-  background: #3fc07b;
-  color: #082d1a;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 900;
-  margin: 0 auto 1.25rem;
-  font-size: 1.1rem;
-  letter-spacing: 0.5px;
-}
-
-.hero-card h1 {
-  font-size: 2.2rem;
-  margin: 0.2rem 0 0.6rem 0;
-  color: #fff;
-  font-weight: 800;
-  line-height: 1.15;
-}
-
-.hero-desc {
-  color: rgba(255,255,255,0.75);
-  margin-bottom: 1.8rem;
-  line-height: 1.6;
-  max-width: 560px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.hero-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
-  margin-bottom: 1.4rem;
-  align-items: center;
-}
-
-.btn-hero {
-  padding: 0.95rem 1.2rem;
-  border-radius: 10px;
-  border: none;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  width: 100%;
-  max-width: 520px;
-}
-
-.btn-hero-primary {
-  background: #36c07a; /* verde vibrante */
-  color: #082d1a;
-  box-shadow: 0 8px 20px rgba(54,192,122,0.18);
-}
-
-.btn-hero-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(63,192,123,0.2); }
-
-.btn-hero-secondary {
-  background: #3d4750; /* botão secundário escuro */
-  color: #e6edf3;
-  border: 1px solid rgba(255,255,255,0.03);
-}
-
-.hero-footer {
-  color: rgba(255,255,255,0.6);
-  margin-top: 1rem;
   font-size: 0.95rem;
 }
 
