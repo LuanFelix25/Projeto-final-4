@@ -359,69 +359,80 @@ const todos = computed(() => store.state.todos || [])
 }
 
 .hero-card {
-  background: #2b3440;
-  color: #fff;
+  background: #27303a; /* card base */
+  color: #ffffff;
   width: 100%;
-  max-width: 680px;
-  border-radius: 14px;
-  padding: 2.5rem 2rem;
+  max-width: 720px;
+  border-radius: 18px;
+  padding: 3rem 2.25rem;
   text-align: center;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+  box-shadow: 0 18px 50px rgba(2,6,23,0.6);
   border: 1px solid rgba(255,255,255,0.04);
 }
 
 .hero-logo {
-  width: 64px;
-  height: 64px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
   background: #3fc07b;
-  color: #08331a;
+  color: #082d1a;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-weight: 800;
-  margin: 0 auto 1rem;
+  font-weight: 900;
+  margin: 0 auto 1.25rem;
   font-size: 1.1rem;
+  letter-spacing: 0.5px;
 }
 
 .hero-card h1 {
-  font-size: 1.8rem;
-  margin: 0.4rem 0 0.6rem 0;
+  font-size: 2.2rem;
+  margin: 0.2rem 0 0.6rem 0;
   color: #fff;
+  font-weight: 800;
+  line-height: 1.15;
 }
 
 .hero-desc {
   color: rgba(255,255,255,0.75);
-  margin-bottom: 1.6rem;
-  line-height: 1.5;
+  margin-bottom: 1.8rem;
+  line-height: 1.6;
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .hero-actions {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.85rem;
   margin-bottom: 1.4rem;
+  align-items: center;
 }
 
 .btn-hero {
   padding: 0.95rem 1.2rem;
-  border-radius: 8px;
+  border-radius: 10px;
   border: none;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.2s ease;
+  width: 100%;
+  max-width: 520px;
 }
 
 .btn-hero-primary {
-  background: #3fc07b;
+  background: #36c07a; /* verde vibrante */
   color: #082d1a;
+  box-shadow: 0 8px 20px rgba(54,192,122,0.18);
 }
 
 .btn-hero-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(63,192,123,0.2); }
 
 .btn-hero-secondary {
-  background: #46505a;
+  background: #3d4750; /* botão secundário escuro */
   color: #e6edf3;
+  border: 1px solid rgba(255,255,255,0.03);
 }
 
 .hero-footer {
@@ -434,8 +445,13 @@ const todos = computed(() => store.state.todos || [])
   .hero-actions { flex-direction: column; }
 }
 
+@media (min-width: 900px) {
+  .hero-actions { flex-direction: column; }
+  .btn-hero { max-width: 520px; }
+}
+
 @media (max-width: 480px) {
   .hero-card { padding: 1.6rem; }
-  .hero-card h1 { font-size: 1.4rem; }
+  .hero-card h1 { font-size: 1.6rem; }
 }
 </style>
